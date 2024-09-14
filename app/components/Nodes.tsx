@@ -29,7 +29,7 @@ const Nodes = () => {
             .enter()
             .append('g')
             .attr('class', 'label')
-            .each(function (d) {
+            .each(function (d, i) {
                 const labelGroup = d3.select(this);
                 const textElement = labelGroup.append('text')
                     .attr('x', d.x)
@@ -38,15 +38,15 @@ const Nodes = () => {
                     .attr('font-size', '12px')
                     .attr('fill', 'black')
                     .text(d.name);
-
+                const type = d.type as keyof typeof entityColors;
                 const bbox = textElement.node()!.getBBox();
-
+                const colorEntity = entityColors[type];
                 labelGroup.insert('rect', 'text')
                     .attr('x', bbox.x - labelPadding)
                     .attr('y', bbox.y - labelPadding)
                     .attr('width', bbox.width + labelPadding * 2)
                     .attr('height', bbox.height + labelPadding * 2)
-                    .attr('fill', entityColors[d.type])
+                    .attr('fill', colorEntity)
                     .attr('stroke', 'black')
                     .attr('rx', 5)
                     .attr('ry', 5);
@@ -109,7 +109,10 @@ const Nodes = () => {
             .attr('fill', 'transparent');
 
         nodeGroups.append('image')
-            .attr('xlink:href', d => iconMap[d.type])
+            .attr('xlink:href', d => {
+                const type = d.type as keyof typeof iconMap;
+
+                return iconMap[type]})
             .attr('x', -20)
             .attr('y', -20)
             .attr('width', 40)
