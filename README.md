@@ -30,3 +30,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ```bash
 https://github.com/yohatu14/test-interactive-map.git
 ```
+
+## Live URL
+```bash
+https://galactic-intelligence-network-yohatu.netlify.app/
+```
